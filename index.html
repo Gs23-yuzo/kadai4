@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>chat app</title>
+</head>
+<body>
+    <div class="container">
+        <div class="chat_area"></div>
+        <div class="message_area">
+            <div class="massage_area_text_me">
+                <textarea name="" id="text_me"></textarea>
+            </div>
+            <div class="massege_area_button_me">
+                <button id="send_me" class="disableed_button_me">わたし</button>
+            </div>
+            <div class="massage_area_text_you">
+                <textarea name="" id="text_you"></textarea>
+            </div>
+            <div class="massege_area_button_you">
+                <button id="send_you" class="disableed_button_you">あなた</button>
+            </div>
+        </div> 
+    </div>
+
+<!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQuery -->
+
+   <!--** 以下Firebase **-->
+   <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+    import {
+      getDatabase,
+      ref,
+      push,
+      set,
+      onChildAdded,
+      remove,
+      onChildRemoved,
+    } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyC-ZYoYKvmKmrDQwApYk9hGPzz1niCe9iw",
+        authDomain: "gs23-f7b0b.firebaseapp.com",
+        databaseURL: "https://gs23-f7b0b-default-rtdb.firebaseio.com",
+        projectId: "gs23-f7b0b",
+        storageBucket: "gs23-f7b0b.appspot.com",
+        messagingSenderId: "182276616161",
+        appId: "1:182276616161:web:12087fcc1fb9a2205eeca0"
+        };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getDatabase(app); //RealtimeDBに接続
+    const dbRef = ref(db,"container"); //RealtimeDB内の"chat"を使う
+
+    //自分のチャット
+
+    $('#send_me').on('click', function(){
+       const text_me = $('#text_me').val();
+       
+        console.log(text_me,'aaa')
+        
+        const msg_me = {
+            text_me: text_me,
+        };
+
+        const newPostRef = push(dbRef);
+        set(newPostRef, msg_me);
+
+        $("#text_me").val(""); //空にする
+
+       //この下消さない
+    });
+
+    //相手のチャット
+
+    $('#send_you').on('click', function(){
+       const text_you = $('#text_you').val();
+
+        console.log(text_you,'aaa')
+
+        const msg_you = {
+            text_you: text_you,
+        };
+
+        const newPostRef = push(dbRef);
+        set(newPostRef, msg_you);
+
+        $("#text_you").val(""); //空にする
+
+       //この下消さない
+    });
+
+    //受信処理 自分
+    onChildAdded(dbRef, function (data_me) {
+        const msg_me = data_me.val();
+        console.log(msg_me, "dataを取得");
+
+        let html = `
+            <p>${msg_me.text_me}</p>
+          `;
+
+        $(".chat_area").append(html);
+      });
+
+      //受信処理 相手
+    onChildAdded(dbRef, function (data_you) {
+        const msg_you = data_you.val();
+        console.log(msg_you, "dataを取得");
+
+        let html = `
+            <p>${msg_you.text_you}</p>
+          `;
+
+        $(".chat_area").append(html);
+      });
+
+     
+
+
+
+
+
+  </script>
+
+
+</body>
+</html>

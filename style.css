@@ -1,0 +1,77 @@
+
+.containner{
+    width: 60%;
+    margin: 30px auto;
+}
+
+.chat_area {
+    height: 80vh;
+    background: #8DB4E5;
+    overflow: scroll
+  }
+
+/*自分のチャット*/
+
+  .message_area_me {
+    height: 10vh;
+    display: flex;
+   }
+
+   .massage_area_text_me {
+    width: 80%;
+   }
+
+   .massege_area_button_me {
+    width: 20%;
+   }
+
+   .massage_area_text_me textarea {
+    width: 100%;
+    height: 100%;
+    resize: none; /* これでユーザーのリサイズをできなくする */
+    border: 1px solid #ddd; /* 枠線をつけて領域を分かりやすく */
+    box-sizing: border-box; /* borderを付けてるので、border込の大きさにする */
+   }
+
+   .massege_area_button_me button {
+    width: 100%;
+    height: 100%;
+    background: #61E739;
+    color: #fff;
+    font-size: 2.0rem;
+    font-weight: bold;
+    border: 0;
+   }
+
+/*相手のチャット*/
+
+   .message_area_you {
+    height: 10vh;
+    display: flex;
+   }
+
+   .massage_area_text_you {
+    width: 80%;
+   }
+
+   .massege_area_button_you {
+    width: 20%;
+   }
+
+   .massage_area_text_you textarea {
+    width: 100%;
+    height: 100%;
+    resize: none; /* これでユーザーのリサイズをできなくする */
+    border: 1px solid #ddd; /* 枠線をつけて領域を分かりやすく */
+    box-sizing: border-box; /* borderを付けてるので、border込の大きさにする */
+   }
+
+   .massege_area_button_you button {
+    width: 100%;
+    height: 100%;
+    background: #61E739;
+    color: #fff;
+    font-size: 2.0rem;
+    font-weight: bold;
+    border: 0;
+   }
